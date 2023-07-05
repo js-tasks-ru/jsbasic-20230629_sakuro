@@ -15,7 +15,7 @@ function isValid(name) {
     return false
   }
 
-  return name !== '' && name.length >= 4 && name.indexOf(' ') === -1
+  return name.length >= 4 && name.indexOf(' ') === -1
 
 }
 
