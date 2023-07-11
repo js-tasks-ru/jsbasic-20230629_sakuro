@@ -1,3 +1,1 @@
-function namify(users) {
-  // ваш код...
-}
+const namify = (arr) => arr.map(e => e.name)
