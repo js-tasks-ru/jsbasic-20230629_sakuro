@@ -44,14 +44,22 @@ export default class Carousel {
       button.addEventListener("click", this.#onMenuClick);
     });
 
+    this.#carusel();
+
+    return this.elem;
+  }
+
+  #carusel() {
     const inner = this.elem.querySelector(".carousel__inner");
     const carouselslides = this.elem.querySelectorAll(".carousel__slide");
-    const slideWidth = 500;
+
     const leftButton = this.elem.querySelector(".carousel__arrow_left");
     const rightButton = this.elem.querySelector(".carousel__arrow_right");
     let currentIndex = 0;
 
     leftButton.addEventListener("click", () => {
+      const slideWidth =
+        this.elem.querySelector(".carousel__inner").offsetWidth;
       if (currentIndex > 0) {
         currentIndex--;
         inner.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
@@ -63,6 +71,8 @@ export default class Carousel {
     });
 
     rightButton.addEventListener("click", () => {
+      const slideWidth =
+        this.elem.querySelector(".carousel__inner").offsetWidth;
       if (currentIndex < carouselslides.length - 1) {
         currentIndex++;
         inner.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
@@ -74,15 +84,12 @@ export default class Carousel {
     });
 
     leftButton.style.display = "none";
-
-    return this.elem;
   }
 
   #onMenuClick = (event) => {
     const slide = event.target.closest(".carousel__slide");
     if (slide) {
       const id = slide.dataset.id;
-      console.log(id);
       const event = new CustomEvent("product-add", {
         bubbles: true,
         detail: id,
