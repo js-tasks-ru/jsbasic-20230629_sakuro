@@ -26,16 +26,16 @@ export default class Modal {
 
     this.overlayElement = createElement('<div class="modal-overlay"></div>');
 
-    this.closeOnEsc = (event) => {
-      if (event.code === "Escape") {
-        this.close();
-      }
-    };
-
     this.isOpened = false;
 
-    this.closeButtonElement.addEventListener("click", this.close.bind(this));
+    this.closeButtonElement.addEventListener("click", this.close);
   }
+
+  closeOnEsc = (event) => {
+    if (event.code === "Escape") {
+      this.close();
+    }
+  };
 
   open() {
     if (this.isOpened) {
@@ -44,24 +44,22 @@ export default class Modal {
 
     this.isOpened = true;
 
-    document.body.prepend(this.overlayElement);
     document.body.prepend(this.element);
     document.body.classList.add("is-modal-open");
     document.addEventListener("keydown", this.closeOnEsc);
   }
 
-  close() {
+  close = () => {
     if (!this.isOpened) {
       return;
     }
 
     this.isOpened = false;
 
-    document.body.removeChild(this.overlayElement);
     document.body.removeChild(this.element);
     document.body.classList.remove("is-modal-open");
     document.removeEventListener("keydown", this.closeOnEsc);
-  }
+  };
 
   setTitle(title) {
     this.titleElement.textContent = title;
