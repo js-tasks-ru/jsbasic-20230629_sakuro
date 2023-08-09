@@ -48,11 +48,7 @@ export default class ProductGrid {
       return false;
     }
 
-    if (
-      vegeterianOnly !== undefined &&
-      product.vegeterian !== vegeterianOnly &&
-      vegeterianOnly === true
-    ) {
+    if (vegeterianOnly && !product.vegeterian) {
       return false;
     }
 
@@ -60,11 +56,7 @@ export default class ProductGrid {
       return false;
     }
 
-    if (
-      category !== undefined &&
-      category !== "" &&
-      product.category !== category
-    ) {
+    if (category && product.category != this.filters.category) {
       return false;
     }
 
