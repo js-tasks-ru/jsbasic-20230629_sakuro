@@ -141,24 +141,27 @@ export default class Cart {
     if (isModalOpen) {
       const productId = cartItem.id;
       const modalBody = document.querySelector(".modal__body");
-
       const productCount = modalBody.querySelector(
         `[data-product-id="${productId}"] .cart-counter__count`
       );
-      productCount.innerHTML = cartItem.count;
-
       const productPrice = modalBody.querySelector(
         `[data-product-id="${productId}"] .cart-product__price`
       );
+      const parentPrice = this.getParentElement(productPrice, 3);
+      const infoPrice = modalBody.querySelector(".cart-buttons__info-price");
+
+      productCount.innerHTML = cartItem.count;
       productPrice.innerHTML = `€${(cartItem.price * cartItem.count).toFixed(
         2
       )}`;
-
-      const infoPrice = modalBody.querySelector(".cart-buttons__info-price");
       infoPrice.innerHTML = `€${this.getTotalPrice().toFixed(2)}`;
 
       if (this.cartItems.length === 0) {
         productCount.innerHTML = "";
+      }
+
+      if (productPrice.innerHTML === "€0.00") {
+        parentPrice.remove();
       }
 
       if (!this.getTotalPrice()) {
@@ -205,7 +208,16 @@ export default class Cart {
       console.error(error);
     }
   }
-
+  getParentElement(element, levels) {
+    let parentElement = element;
+    for (let i = 0; i < levels; i++) {
+      parentElement = parentElement.parentNode;
+      if (!parentElement) {
+        return null;
+      }
+    }
+    return parentElement;
+  }
   addEventListeners() {
     this.cartIcon.elem.onclick = () => this.renderModal();
   }
