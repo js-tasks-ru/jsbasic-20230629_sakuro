@@ -56,7 +56,7 @@ export default class Modal {
 
     this.isOpened = false;
 
-    document.body.removeChild(this.element);
+    this.element.remove();
     document.body.classList.remove("is-modal-open");
     document.removeEventListener("keydown", this.closeOnEsc);
   };

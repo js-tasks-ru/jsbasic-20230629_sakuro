@@ -44,10 +44,8 @@ export default class ProductGrid {
   #filterProduct(product) {
     const { noNuts, vegeterianOnly, maxSpiciness, category } = this.filters;
 
-    let result = true;
-
-    if (noNuts !== undefined && product.nuts !== noNuts && noNuts === true) {
-      result = false;
+    if (noNuts && product.nuts) {
+      return false;
     }
 
     if (
@@ -55,11 +53,11 @@ export default class ProductGrid {
       product.vegeterian !== vegeterianOnly &&
       vegeterianOnly === true
     ) {
-      result = false;
+      return false;
     }
 
     if (maxSpiciness !== undefined && product.spiciness > maxSpiciness) {
-      result = false;
+      return false;
     }
 
     if (
@@ -67,9 +65,9 @@ export default class ProductGrid {
       category !== "" &&
       product.category !== category
     ) {
-      result = false;
+      return false;
     }
 
-    return result;
+    return true;
   }
 }
