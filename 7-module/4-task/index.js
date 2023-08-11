@@ -29,8 +29,10 @@ export default class StepSlider {
     this.elem = createElement(this.#template());
     const progress = this.elem.querySelector(".slider__progress");
     const sliderThumb = this.elem.querySelector(".slider__thumb");
-    progress.style.width = "50%";
-    sliderThumb.style.left = "50%";
+    const leftPercents = (this.value / (this.steps - 1)) * 100;
+
+    sliderThumb.style.left = `${leftPercents}%`;
+    progress.style.width = `${leftPercents}%`;
 
     this.elem.addEventListener("pointerdown", this.#onDown);
     document.addEventListener("pointermove", this.#onMove);
